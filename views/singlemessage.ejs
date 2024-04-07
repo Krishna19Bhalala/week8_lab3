@@ -1,0 +1,61 @@
+<!-- Define a function to render the message -->
+<% function renderMessage(message) { %>
+    <div class="item-details">
+      <article>
+        <h2>Sender: <%= message.sender %></h2>
+        <div><strong>Recipient</strong><%= message.recipient %></div>
+        <p>
+          <strong>Content:</strong> <%= message.content %><br />
+        </p>
+    
+        <!-- Update button -->
+        <form
+          class="action-form"
+          method="GET"
+          action="/single-message/update/<%= message._id %>"
+        >
+          <button type="submit" class="update">update</button>
+        </form>
+    
+        <!-- Delete button -->
+        <form
+          class="action-form"
+          method="POST"
+          action="/single-message/<%= message._id %>?_method=DELETE"
+        >
+          <button type="submit">delete</button>
+        </form>
+      </article>
+    </div>
+    <% } %>
+
+    
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Single Message</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <!-- Link to external stylesheet -->
+      </head>
+      <body>
+        <nav class="navbar">
+          <h1>My Messages</h1>
+          <div class="links">
+            <a href="/">Home</a>
+            <a class="new-item-link" href="/addmessage">New Message</a>
+          </div>
+        </nav>
+    
+        <div class="content">
+          <div class="home">
+            <div class="item-list">
+              <% if (message) { %> <%= renderMessage(message) %> <% } else { %>
+              <p>No message found.</p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>
